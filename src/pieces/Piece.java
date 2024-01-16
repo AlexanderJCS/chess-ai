@@ -25,7 +25,7 @@ public abstract class Piece {
     }
 
     public boolean isWhite() {
-        return isWhite;
+        return this.isWhite;
     }
 
     private List<Move> getMovesRepeating(Board board, int index, MovementMethod method) {

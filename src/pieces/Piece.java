@@ -28,13 +28,6 @@ public abstract class Piece {
         return isWhite;
     }
 
-    private static boolean isOutsideRow(int indexOfPiece, int indexOfMove) {
-        boolean isLeft = indexOfMove < indexOfPiece && indexOfMove % Board.SIZE == Board.SIZE - 1;
-        boolean isRight = indexOfMove > indexOfPiece && indexOfMove % Board.SIZE == 0;
-
-        return isLeft || isRight;
-    }
-
     private List<Move> getMovesRepeating(Board board, int index, MovementMethod method) {
         List<Move> moves = new ArrayList<>();
         Vector2i start = Board.indexToXY(index);

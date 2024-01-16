@@ -5,6 +5,7 @@ import jangl.coords.WorldCoords;
 import jangl.graphics.textures.Image;
 import jangl.shapes.Rect;
 import move.Move;
+import org.joml.Vector2i;
 import pieces.Piece;
 
 public class Board {
@@ -120,8 +121,24 @@ public class Board {
         return this.board[x + y * SIZE];
     }
 
+    public Piece getPiece(Vector2i pos) {
+        return this.getPiece(pos.x, pos.y);
+    }
+
     public Piece getPiece(int index) {
         return this.board[index];
+    }
+
+    public static Vector2i indexToXY(int index) {
+        return new Vector2i(index % SIZE, index / SIZE);
+    }
+
+    public static int xyToIndex(int x, int y) {
+        return x + y * SIZE;
+    }
+
+    public static int xyToIndex(Vector2i pos) {
+        return Board.xyToIndex(pos.x, pos.y);
     }
 
     public void runMove(Move move) {

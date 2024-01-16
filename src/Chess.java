@@ -20,6 +20,8 @@ public class Chess {
     }
 
     public void run() {
+        System.out.println(this.board.getPiece(0).getMoves(this.board, 0));
+
         while (Window.shouldRun()) {
             this.update();
             this.draw();

@@ -6,7 +6,8 @@ public class King extends Piece {
     public King(boolean isWhite) {
         super(
                 TextureMap.get((isWhite ? "white" : "black") + "_king"),
-                isWhite
+                isWhite,
+                new MovementMethod[]{ MovementMethod.KING }
         );
     }
 }

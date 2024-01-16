@@ -6,7 +6,8 @@ public class Knight extends Piece {
     public Knight(boolean isWhite) {
         super(
                 TextureMap.get((isWhite ? "white" : "black") + "_knight"),
-                isWhite
+                isWhite,
+                new MovementMethod[]{ MovementMethod.KNIGHT }
         );
     }
 }

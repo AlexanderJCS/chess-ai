@@ -6,7 +6,8 @@ public class Rook extends Piece {
     public Rook(boolean isWhite) {
         super(
                 TextureMap.get((isWhite ? "white" : "black") + "_rook"),
-                isWhite
+                isWhite,
+                new MovementMethod[]{ MovementMethod.CARDINALS }
         );
     }
 }

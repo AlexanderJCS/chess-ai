@@ -6,7 +6,8 @@ public class Queen extends Piece {
     public Queen(boolean isWhite) {
         super(
                 TextureMap.get((isWhite ? "white" : "black") + "_queen"),
-                isWhite
+                isWhite,
+                new MovementMethod[]{ MovementMethod.DIAGONALS, MovementMethod.CARDINALS }
         );
     }
 }

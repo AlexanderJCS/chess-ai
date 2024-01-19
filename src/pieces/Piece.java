@@ -57,29 +57,36 @@ public abstract class Piece {
         return moves;
     }
 
-//    private List<Move> getMovesNoRepeating(Board board, int index, MovementMethod method) {
-//        List<Move> moves = new ArrayList<>();
-//        int[] offsets = method.getOffsets();
-//
-//        for (int offset : offsets) {
-//            int i = index + offset;
-//
-//            if (i >= 0 && i < Board.SIZE * Board.SIZE) {
-//                if (board.getPiece(i) != null) {
-//                    // Capture the piece if it is the opposite color
-//                    if (board.getPiece(i).isWhite() != this.isWhite) {
-//                        moves.add(new Move(index, i, MoveType.CAPTURE));
-//                    }
-//
-//                    continue;
-//                }
-//
-//                moves.add(new Move(index, i));
-//            }
-//        }
-//
-//        return moves;
-//    }
+    private List<Move> getMovesNoRepeating(Board board, int index, MovementMethod method) {
+        List<Move> moves = new ArrayList<>();
+        Vector2i start = Board.indexToXY(index);
+        Vector2i[] offsets = method.getOffsets();
+
+        for (Vector2i offset : offsets) {
+            Vector2i pos = new Vector2i(start);
+            pos.add(offset);
+
+            if (pos.x < 0 || pos.x >= Board.SIZE || pos.y < 0 || pos.y >= Board.SIZE) {
+                continue;
+            }
+
+            int i = Board.xyToIndex(pos);
+
+            if (board.getPiece(i) != null) {
+                // Capture the piece if it is the opposite color
+                if (board.getPiece(i).isWhite() != this.isWhite) {
+                    moves.add(new Move(index, i, MoveType.CAPTURE));
+                }
+
+                continue;
+            }
+
+            moves.add(new Move(index, i));
+            pos.add(offset);
+        }
+
+        return moves;
+    }
 
     public List<Move> getMoves(Board board, int index) {
         List<Move> moves = new ArrayList<>();
@@ -88,7 +95,7 @@ public abstract class Piece {
             if (method.repeats()) {
                 moves.addAll(this.getMovesRepeating(board, index, method));
             } else {
-//                moves.addAll(this.getMovesNoRepeating(board, index, method));
+                moves.addAll(this.getMovesNoRepeating(board, index, method));
             }
         }
 

@@ -4,9 +4,12 @@ import helper.TextureMap;
 import jangl.coords.WorldCoords;
 import jangl.graphics.textures.Image;
 import jangl.shapes.Rect;
+import jangl.shapes.Shape;
 import move.Move;
 import org.joml.Vector2i;
 import pieces.Piece;
+
+import java.util.List;
 
 public class Board {
     public static final int SIZE = 8;
@@ -42,7 +45,7 @@ public class Board {
 
         this.background = new Image(
                 new Rect(new WorldCoords(0, 1), 1, 1),
-                TextureMap.get("board")
+                new BoardTexture()
         );
 
         this.applyOffset();
@@ -114,6 +117,30 @@ public class Board {
             }
 
             this.rects[i].draw(piece.getTexture());
+        }
+    }
+
+    public void select(WorldCoords coords) {
+        for (int i = 0; i < this.rects.length; i++) {
+            Rect rect = this.rects[i];
+
+            if (!Shape.collides(rect, coords)) {
+                continue;
+            }
+
+            if (this.getPiece(i) == null) {
+                break;
+            }
+
+            List<Move> moves = this.getPiece(i).getMoves(this, i);
+
+            for (Move move : moves) {
+                BoardTexture tex = (BoardTexture) this.background.bindable1();
+                tex.resetBoard();
+                tex.showMove(move);
+            }
+
+            break;
         }
     }
 

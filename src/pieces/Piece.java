@@ -35,7 +35,7 @@ public abstract class Piece {
 
         for (Vector2i offset : offsets) {
             Vector2i pos = new Vector2i(start);
-            pos.add(offset);
+            pos.add(offset.mul(this.isWhite ? -1 : 1));
 
             while (pos.x >= 0 && pos.x < Board.SIZE && pos.y >= 0 && pos.y < Board.SIZE) {
                 int i = Board.xyToIndex(pos);
@@ -64,7 +64,7 @@ public abstract class Piece {
 
         for (Vector2i offset : offsets) {
             Vector2i pos = new Vector2i(start);
-            pos.add(offset);
+            pos.add(offset.mul(this.isWhite ? -1 : 1));
 
             if (pos.x < 0 || pos.x >= Board.SIZE || pos.y < 0 || pos.y >= Board.SIZE) {
                 continue;
